@@ -1,7 +1,5 @@
-import ProjectVersions.openosrsVersion
-
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, Andrew EP | ElPinche256 <https://github.com/ElPinche256>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,35 +22,24 @@ import ProjectVersions.openosrsVersion
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.HaramCox;
 
-version = "0.0.1"
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-project.extra["PluginName"] = "Java example plugin" // This is the name that is used in the external plugin manager panel
-project.extra["PluginDescription"] = "Java example plugin" // This is the description that is used in the external plugin manager panel
+@ConfigGroup("HaramCoxConfig")
 
-dependencies {
-    annotationProcessor(Libraries.lombok)
-    annotationProcessor(Libraries.pf4j)
-
-    compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
-    compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
-
-    compileOnly(Libraries.guice)
-    compileOnly(Libraries.javax)
-    compileOnly(Libraries.lombok)
-    compileOnly(Libraries.pf4j)
-}
-
-tasks {
-    jar {
-        manifest {
-            attributes(mapOf(
-                    "Plugin-Version" to project.version,
-                    "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
-                    "Plugin-Provider" to project.extra["PluginProvider"],
-                    "Plugin-Description" to project.extra["PluginDescription"],
-                    "Plugin-License" to project.extra["PluginLicense"]
-            ))
-        }
-    }
+public interface HaramCoxConfig extends Config
+{
+	@ConfigItem(
+		keyName = "example",
+		name = "Example config item",
+		description = "Example",
+		position = 0
+	)
+	default boolean example()
+	{
+		return true;
+	}
 }

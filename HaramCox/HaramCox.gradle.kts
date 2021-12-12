@@ -1,5 +1,7 @@
+import ProjectVersions.openosrsVersion
+
 /*
- * Copyright (c) 2018, Andrew EP | ElPinche256 <https://github.com/ElPinche256>
+ * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,24 +24,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.example.javaexample;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
+version = "5.0.1"
 
-@ConfigGroup("JavaExampleConfig")
+project.extra["PluginName"] = "HaramCox" // This is the name that is used in the external plugin manager panel
+project.extra["PluginDescription"] = "nothalalbtw" // This is the description that is used in the external plugin manager panel
 
-public interface JavaExampleConfig extends Config
-{
-	@ConfigItem(
-		keyName = "example",
-		name = "Example config item",
-		description = "Example",
-		position = 0
-	)
-	default boolean example()
-	{
-		return true;
-	}
+dependencies {
+    annotationProcessor(Libraries.lombok)
+    annotationProcessor(Libraries.pf4j)
+
+    compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
+    compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
+
+    compileOnly(Libraries.apacheCommonsText)
+    compileOnly(Libraries.guice)
+    compileOnly(Libraries.lombok)
+    compileOnly(Libraries.pf4j)
+}
+
+tasks {
+    jar {
+        manifest {
+            attributes(mapOf(
+                    "Plugin-Version" to project.version,
+                    "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
+                    "Plugin-Provider" to project.extra["PluginProvider"],
+                    "Plugin-Description" to project.extra["PluginDescription"],
+                    "Plugin-License" to project.extra["PluginLicense"]
+            ))
+        }
+    }
 }

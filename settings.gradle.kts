@@ -23,10 +23,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "external plugins example"
+rootProject.name = "Bandit Plugins"
 
 include(":kotlinexample")
-include(":javaexample")
+include(":HaramCox")//change to HaramCox previous javaexample
 
 for (project in rootProject.children) {
     project.apply {
